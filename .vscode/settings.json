@@ -1,0 +1,16 @@
+{
+  "solargraph.completion": true,
+  "rubyLsp.rubyVersionManager": {
+    "identifier": "none"
+  },
+  "rubyLsp.formatter": "rubocop",
+  "[ruby]": {
+      "editor.defaultFormatter": "Shopify.ruby-lsp",
+      "editor.formatOnSave": true
+  },
+  "ruby.lint": {
+        "ruby": {
+            "unicode": true
+        }
+    }
+}
