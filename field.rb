@@ -18,6 +18,11 @@ class Field
         x = @x + j * (BLOCK_SIZE + 2)
         y = @y + i * (BLOCK_SIZE + 2)
         @blocks[i] << Block.new(x, y, BLOCK_SIZE, BLOCK_SIZE)
+
+        # ここで壁を作る
+        if i < height - 1 && 0 < j && j < width - 1
+          @blocks[i][j].is_active = false
+        end
       end
     end
   end
