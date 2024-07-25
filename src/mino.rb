@@ -5,7 +5,16 @@ class Mino
     @blocks = blocks
   end
 
-  # (0, 0)を中心に反時計回りに90度回転
+  # (0, 0)を中心に左回りに90度回転
+  def rotate_left
+      @blocks = @blocks.map do |block|
+        x = block[0]
+        y = -block[1]
+        [y, x]
+      end
+  end
+
+  # (0, 0)を中心に右回りに90度回転
   def rotate_right
     @blocks = @blocks.map do |block|
       x = -block[0]

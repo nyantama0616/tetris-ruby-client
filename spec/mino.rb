@@ -8,6 +8,11 @@ RSpec.describe Mino do
       @mino = Mino.new Mino::Shape::CONVEX
     end
 
+    it 'rotate_left' do
+      @mino.rotate_left
+      expect(@mino.blocks).to eq [[1, -1], [1, 0], [0, 0], [1, 1]]
+    end
+
     it 'rotate_right' do
       @mino.rotate_right
       expect(@mino.blocks).to eq [[-1, 1], [-1, 0], [0, 0], [-1, -1]]
