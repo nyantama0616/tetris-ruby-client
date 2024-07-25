@@ -1,4 +1,6 @@
 require_relative 'block'
+require_relative 'mino'
+require_relative 'mino_shape'
 
 BLOCK_SIZE = 20
 
@@ -25,6 +27,8 @@ class Field
         end
       end
     end
+
+    @mino = nil
   end
 
   def draw
@@ -34,4 +38,17 @@ class Field
       end
     end
   end
+
+  def generate_mino
+    @mino = Mino.new Mino::Shape::CONVEX
+    @mino.to_right
+    @mino.to_right
+    @mino.to_buttom
+    @mino.to_buttom
+    @mino
+  end
+
+  private
+
+
 end
