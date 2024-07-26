@@ -1,3 +1,5 @@
+require_relative 'mino_shape'
+
 class Mino
   attr_reader :blocks
 
@@ -65,5 +67,24 @@ class Mino
     new_offset = [@offset[0], @offset[1] - 1]
 
     Mino.new(new_blocks, new_offset)
+  end
+
+  class << self
+    def generate
+      r = rand(5)
+      case r
+      when 0
+        shape = Shape::CONVEX
+      when 1
+        shape = Shape::SQUARE
+      when 2
+        shape = Shape::LR
+      when 3
+        shape = Shape::RL
+      when 4
+        shape = Shape::BAR
+      end
+      Mino.new shape
+    end
   end
 end

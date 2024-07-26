@@ -113,7 +113,7 @@ class Field
   private
 
   def generate_mino
-    new_mino = Mino.new Mino::Shape::CONVEX
+    new_mino = Mino.generate
     6.times do
       new_mino = new_mino.to_right
     end
