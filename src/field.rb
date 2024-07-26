@@ -13,22 +13,10 @@ class Field
     @height = height
     @width = width
 
-    @blocks = []
-    height.times do |i|
-      @blocks << []
-      width.times do |j|
-        x = @x + j * (BLOCK_SIZE + 2)
-        y = @y + i * (BLOCK_SIZE + 2)
-        @blocks[i] << Block.new(x, y, BLOCK_SIZE, BLOCK_SIZE)
+    init_field
 
-        # ここで壁を作る
-        if i < height - 1 && 0 < j && j < width - 1
-          @blocks[i][j].is_active = false
-        end
-      end
-    end
-
-    @mino = nil
+    @mino = generate_mino
+    apply @mino
   end
 
   def draw
@@ -39,16 +27,108 @@ class Field
     end
   end
 
-  def generate_mino
-    @mino = Mino.new Mino::Shape::CONVEX
-    @mino.to_right
-    @mino.to_right
-    @mino.to_buttom
-    @mino.to_buttom
-    @mino
+  # TODO: リファクタリング leftとrightほぼ処理一緒
+  def to_left
+    return unless @mino
+
+    new_mino = @mino.to_left
+
+    return unless apply(new_mino)
+
+    @mino = new_mino
+  end
+
+  def to_buttom
+    return unless @mino
+
+    new_mino = @mino.to_buttom
+
+    return unless apply(new_mino)
+
+    @mino = new_mino
+  end
+
+  def to_right
+    return unless @mino
+
+    new_mino = @mino.to_right
+
+    return unless apply(new_mino)
+
+    @mino = new_mino
+  end
+
+  def rotate_left
+    puts 'rotate_left'
+    return unless @mino
+
+    new_mino = @mino.rotate_left
+
+    return unless apply(new_mino)
+
+    @mino = new_mino
+  end
+
+  def rotate_right
+    puts 'rotate_right'
+    return unless @mino
+
+    new_mino = @mino.rotate_right
+
+    return unless apply(new_mino)
+
+    @mino = new_mino
   end
 
   private
 
+  def init_field
+    @blocks = []
+    height.times do |i|
+      @blocks << []
+      width.times do |j|
+        x = @x + j * (BLOCK_SIZE + 2)
+        y = @y + i * (BLOCK_SIZE + 2)
+        @blocks[i] << Block.new(x, y, BLOCK_SIZE, BLOCK_SIZE)
 
+        # ここで壁を作る
+        @blocks[i][j].is_active = false if i < height - 1 && 0 < j && j < width - 1
+      end
+    end
+  end
+
+  def generate_mino
+    new_mino = Mino.new Mino::Shape::BAR
+    new_mino.to_right.to_right.to_buttom
+  end
+
+  def apply(mino)
+    # 現在のミノを非表示にする
+    @mino&.blocks&.each do |i, j|
+      @blocks[i][j].is_active = false
+    end
+
+    ok = true
+    mino.blocks.each do |i, j|
+      if !(0 <= i && i < @height - 1) || !(0 < j && j < @width - 1) || @blocks[i][j].is_active
+        ok = false
+        break
+      end
+    end
+
+    unless ok
+      # 現在のミノを再び表示する
+      @mino&.blocks&.each do |i, j|
+        @blocks[i][j].is_active = true
+      end
+
+      return false
+    end
+
+    mino.blocks.each do |i, j|
+      @blocks[i][j].is_active = true
+    end
+
+    true
+  end
 end
