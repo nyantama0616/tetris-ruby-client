@@ -59,7 +59,6 @@ class Field
   end
 
   def rotate_left
-    puts 'rotate_left'
     return unless @mino
 
     new_mino = @mino.rotate_left
@@ -70,7 +69,6 @@ class Field
   end
 
   def rotate_right
-    puts 'rotate_right'
     return unless @mino
 
     new_mino = @mino.rotate_right
@@ -98,7 +96,7 @@ class Field
   end
 
   def generate_mino
-    new_mino = Mino.new Mino::Shape::BAR
+    new_mino = Mino.new Mino::Shape::CONVEX
     new_mino.to_right.to_right.to_buttom
   end
 
