@@ -7,9 +7,12 @@ class GameWindow < Gosu::Window
     self.caption = 'My First Game'
     @field = Field.new 320 - 132, 320 - 242, 22, 12 # TODO:
     @last_update_time = Gosu.milliseconds # TODO: handle_fall_minoのためだけにインスタンス変数持つのキモい
+    @is_gameover = false
   end
 
   def update
+    return if @is_gameover
+
     handle_fall_mino
   end
 
@@ -32,7 +35,7 @@ class GameWindow < Gosu::Window
     current_time = Gosu.milliseconds
     return unless current_time - @last_update_time >= 1000
 
-    @field.to_buttom
+    @is_gameover = !@field.to_buttom && !@field.init_mino
     @last_update_time = current_time
   end
 end

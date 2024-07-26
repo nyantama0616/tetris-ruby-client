@@ -14,9 +14,6 @@ class Field
     @width = width
 
     init_field
-
-    @mino = generate_mino
-    apply @mino
   end
 
   def draw
@@ -26,59 +23,6 @@ class Field
       end
     end
   end
-
-  # TODO: リファクタリング leftとrightほぼ処理一緒
-  def to_left
-    return unless @mino
-
-    new_mino = @mino.to_left
-
-    return unless apply(new_mino)
-
-    @mino = new_mino
-  end
-
-  def to_buttom
-    return unless @mino
-
-    new_mino = @mino.to_buttom
-
-    return unless apply(new_mino)
-
-    @mino = new_mino
-  end
-
-  def to_right
-    return unless @mino
-
-    new_mino = @mino.to_right
-
-    return unless apply(new_mino)
-
-    @mino = new_mino
-  end
-
-  def rotate_left
-    return unless @mino
-
-    new_mino = @mino.rotate_left
-
-    return unless apply(new_mino)
-
-    @mino = new_mino
-  end
-
-  def rotate_right
-    return unless @mino
-
-    new_mino = @mino.rotate_right
-
-    return unless apply(new_mino)
-
-    @mino = new_mino
-  end
-
-  private
 
   def init_field
     @blocks = []
@@ -95,9 +39,85 @@ class Field
     end
   end
 
+  def init_mino
+    @mino = generate_mino
+
+    @mino.blocks.each do |i, j|
+      return false if @blocks[i][j].is_active
+    end
+
+    true
+  end
+
+  # TODO: リファクタリング leftとrightほぼ処理一緒
+  def to_left
+    return false unless @mino
+
+    new_mino = @mino.to_left
+
+    return false unless apply(new_mino)
+
+    @mino = new_mino
+
+    true
+  end
+
+  def to_buttom
+    return false unless @mino
+
+    new_mino = @mino.to_buttom
+
+    return false unless apply(new_mino)
+
+    @mino = new_mino
+
+    true
+  end
+
+  def to_right
+    return false unless @mino
+
+    new_mino = @mino.to_right
+
+    return false unless apply(new_mino)
+
+    @mino = new_mino
+
+    true
+  end
+
+  def rotate_left
+    return false unless @mino
+
+    new_mino = @mino.rotate_left
+
+    return false unless apply(new_mino)
+
+    @mino = new_mino
+
+    true
+  end
+
+  def rotate_right
+    return false unless @mino
+
+    new_mino = @mino.rotate_right
+
+    return false unless apply(new_mino)
+
+    @mino = new_mino
+
+    true
+  end
+
+  private
+
   def generate_mino
     new_mino = Mino.new Mino::Shape::CONVEX
-    new_mino.to_right.to_right.to_buttom
+    6.times do
+      new_mino = new_mino.to_right
+    end
+    new_mino.to_buttom
   end
 
   def apply(mino)
