@@ -71,7 +71,7 @@ class Mino
 
   class << self
     def generate
-      r = rand(5)
+      r = rand(6)
       case r
       when 0
         shape = Shape::CONVEX
@@ -83,6 +83,8 @@ class Mino
         shape = Shape::RL
       when 4
         shape = Shape::BAR
+      when 5
+        shape = Shape::L
       end
       Mino.new shape
     end

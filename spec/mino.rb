@@ -77,4 +77,15 @@ RSpec.describe Mino do
       expect(new_mino.blocks).to eq [[0, 1], [0, 0], [0, -1], [0, -2]]
     end
   end
+
+  describe 'L' do
+    before do
+      @mino = Mino.new Mino::Shape::L
+    end
+
+    it 'rotate_right' do
+      new_mino = @mino.rotate_right
+      expect(new_mino.blocks).to eq [[0, 1], [0, 0], [0, -1], [1, -1]]
+    end
+  end
 end
