@@ -18,4 +18,9 @@ class Block
 
     Gosu.draw_rect(@x, @y, @width, @height, @color)
   end
+
+  def copy!(other)
+    @is_active = other.is_active
+    @color = other.color
+  end
 end

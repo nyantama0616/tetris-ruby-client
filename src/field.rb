@@ -37,6 +37,17 @@ class Field
         @blocks[i][j].is_active = false if i < height - 1 && 0 < j && j < width - 1
       end
     end
+
+    # TODO: 開発用に幾つかのブロックをアクティブにする。本番では削除する
+    (1...5).each do |j|
+      @blocks[@height - 2][j].is_active = true
+    end
+    (6...@width - 1).each do |j|
+      @blocks[@height - 2][j].is_active = true
+    end
+    (1...3).each do |j|
+      @blocks[@height - 3][j].is_active = true
+    end
   end
 
   def init_mino
@@ -125,7 +136,51 @@ class Field
     true
   end
 
+  # 揃った行を消し、空行を埋め、消した行数を返す
+  def arrange
+    erased_lines = erase_lines
+
+    offset = 0
+    pos_erased_lines = 0
+
+    (@height - 1).times.reverse_each do |i|
+      if erased_lines[pos_erased_lines] == i
+        offset += 1
+        pos_erased_lines += 1
+      else
+        i_ = i + offset
+
+        # シフト量0の場合は何もしない
+        next if i_ >= @height - 1 || i_ == i
+
+        (1...@width - 1).each do |j|
+          @blocks[i_][j].copy!(@blocks[i][j])
+        end
+      end
+    end
+
+    erased_lines.length
+  end
+
   private
+
+  # 消せる行を消し、消した行のインデックスを返す
+  def erase_lines
+    erased_lines = []
+
+    # 一番下の行から見ていく
+    (@height - 1).times.reverse_each do |i|
+      erased_lines << i if (1...@width - 1).all? { |j| @blocks[i][j].is_active }
+    end
+
+    erased_lines.each do |i|
+      (1...@width - 1).each do |j|
+        @blocks[i][j].is_active = false
+      end
+    end
+
+    erased_lines
+  end
 
   def generate_mino
     new_mino = Mino.generate

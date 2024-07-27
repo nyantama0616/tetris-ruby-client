@@ -37,6 +37,7 @@ class GameWindow < Gosu::Window
     return unless current_time - @last_update_time >= 1000
 
     @is_gameover = !@field.to_bottom && !@field.init_mino
+    @field.arrange unless @is_gameover
     @last_update_time = current_time
   end
 end
