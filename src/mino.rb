@@ -31,7 +31,7 @@ class Mino
   end
 
   # 1マス下に移動
-  def to_buttom
+  def to_bottom
     new_blocks = @blocks.map do |block|
       x = block[1]
       y = block[0] + 1

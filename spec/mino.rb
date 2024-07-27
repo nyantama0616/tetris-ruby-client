@@ -18,8 +18,8 @@ RSpec.describe Mino do
       expect(new_mino.blocks).to eq [[-1, 1], [-1, 0], [0, 0], [-1, -1]]
     end
 
-    it 'to_buttom' do
-      new_mino = @mino.to_buttom
+    it 'to_bottom' do
+      new_mino = @mino.to_bottom
       expect(new_mino.blocks).to eq [[0, -1], [1, -1], [1, 0], [2, -1]]
     end
 

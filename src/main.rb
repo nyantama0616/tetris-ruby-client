@@ -24,7 +24,7 @@ class GameWindow < Gosu::Window
     close if id == Gosu::KB_SPACE
     @field.to_left if id == Gosu::KB_LEFT
     @field.to_right if id == Gosu::KB_RIGHT
-    @field.to_buttom if id == Gosu::KB_DOWN
+    @field.to_bottom if id == Gosu::KB_DOWN
     @field.rotate_left if id == Gosu::KB_A
     @field.rotate_right if id == Gosu::KB_D
   end
@@ -35,7 +35,7 @@ class GameWindow < Gosu::Window
     current_time = Gosu.milliseconds
     return unless current_time - @last_update_time >= 1000
 
-    @is_gameover = !@field.to_buttom && !@field.init_mino
+    @is_gameover = !@field.to_bottom && !@field.init_mino
     @last_update_time = current_time
   end
 end

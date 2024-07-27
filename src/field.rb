@@ -62,10 +62,10 @@ class Field
     true
   end
 
-  def to_buttom
+  def to_bottom
     return false unless @mino
 
-    new_mino = @mino.to_buttom
+    new_mino = @mino.to_bottom
 
     return false unless apply(new_mino)
 
@@ -117,7 +117,7 @@ class Field
     6.times do
       new_mino = new_mino.to_right
     end
-    new_mino.to_buttom
+    new_mino.to_bottom
   end
 
   def apply(mino)
