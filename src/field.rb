@@ -62,6 +62,18 @@ class Field
     true
   end
 
+  def to_right
+    return false unless @mino
+
+    new_mino = @mino.to_right
+
+    return false unless apply(new_mino)
+
+    @mino = new_mino
+
+    true
+  end
+
   def to_bottom
     return false unless @mino
 
@@ -74,16 +86,19 @@ class Field
     true
   end
 
-  def to_right
+  def to_bottom_immidiately
     return false unless @mino
 
-    new_mino = @mino.to_right
+    ok = false
 
-    return false unless apply(new_mino)
+    new_mino = @mino.to_bottom
+    while apply(new_mino)
+      ok = true
+      @mino = new_mino
+      new_mino = @mino.to_bottom
+    end
 
-    @mino = new_mino
-
-    true
+    ok
   end
 
   def rotate_left

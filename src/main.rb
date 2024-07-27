@@ -25,6 +25,7 @@ class GameWindow < Gosu::Window
     @field.to_left if id == Gosu::KB_LEFT
     @field.to_right if id == Gosu::KB_RIGHT
     @field.to_bottom if id == Gosu::KB_DOWN
+    @field.to_bottom_immidiately if id == Gosu::KB_S
     @field.rotate_left if id == Gosu::KB_A
     @field.rotate_right if id == Gosu::KB_D
   end
